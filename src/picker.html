@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Bản xem trước thiết kế | SVI Group</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#252C45">
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/site.css">
+  <style>
+    .picker { min-height: 100vh; background: var(--navy); color: #fff; }
+    .picker .wrap { padding-block: clamp(48px, 8vw, 96px); }
+    .picker__logo img { width: 200px; height: auto; }
+    .picker h1 { margin-top: clamp(40px, 6vw, 72px); color: #fff; font-weight: 300; font-size: clamp(2rem, 1.4rem + 2.6vw, 3.25rem); }
+    .picker .lead { margin-top: 16px; color: rgba(255,255,255,.75); }
+    .dir { margin-top: clamp(40px, 6vw, 64px); }
+    .dir h2 { color: #fff; font-size: 1.25rem; font-weight: 500; }
+    .dir h2 span { display: block; margin-top: 4px; font-size: .875rem; font-weight: 400; color: rgba(255,255,255,.6); }
+    .picks { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin: 20px 0 0; padding: 0; list-style: none; }
+    .pick { display: flex; flex-direction: column; gap: 8px; height: 100%; padding: 20px; border: 1px solid var(--rule-light); color: #fff; text-decoration: none; transition: border-color .2s ease, background .2s ease; }
+    .pick:hover { border-color: var(--copper); background: rgba(255,255,255,.03); }
+    .pick__n { font-size: .75rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--copper); }
+    .pick__t { font-size: 1.0625rem; line-height: 1.4; }
+    .pick__t em { margin-left: 6px; padding: 2px 8px; border-radius: 999px; background: var(--copper); font-size: .6875rem; font-style: normal; font-weight: 600; letter-spacing: .06em; vertical-align: 2px; }
+    .pick__d { font-size: .875rem; line-height: 1.6; color: rgba(255,255,255,.65); }
+    .dir--soon .picks li { padding: 20px; border: 1px dashed var(--rule-light); color: rgba(255,255,255,.5); font-size: .875rem; }
+    .picker .extra { margin-top: 20px; font-size: .875rem; color: rgba(255,255,255,.6); }
+    .picker .extra a { color: var(--champagne); }
+  </style>
+</head>
+<body>
+  <main class="picker">
+    <div class="wrap">
+      <p class="picker__logo">
+        <picture>
+          <source type="image/webp" srcset="img/logo/svi-logo-ngang-trang.webp">
+          <img src="img/logo/svi-logo-ngang-trang.png" width="711" height="144" alt="Southern Vision Investment">
+        </picture>
+      </p>
+      <h1>Bản xem trước thiết kế website</h1>
+      <p class="lead">Mỗi hướng thiết kế có năm phương án cho phần đầu trang (hero). Phần còn lại của trang chủ giống nhau trong cùng một hướng. Khi xem một phương án, dùng nút ở góc phải bên dưới để chuyển nhanh giữa các hero.</p>
+
+      <section class="dir" aria-labelledby="dir-a">
+        <h2 id="dir-a">Hướng A · Thể chế, tiết chế<span>Dành cho đối tác tổ chức, nhà đồng đầu tư và ngân hàng</span></h2>
+        <ul class="picks">
+<!-- VARIANTS_A -->
+        </ul>
+        <p class="extra">Trang con của hướng A: <a href="huong-a-cong-ty-thanh-vien.html">Công ty thành viên</a> (bản nháp)</p>
+      </section>
+
+      <section class="dir dir--soon" aria-labelledby="dir-b">
+        <h2 id="dir-b">Hướng B<span>Đang chuẩn bị</span></h2>
+        <ul class="picks"><li>Năm phương án hero sẽ được bổ sung</li></ul>
+      </section>
+
+      <section class="dir dir--soon" aria-labelledby="dir-c">
+        <h2 id="dir-c">Hướng C<span>Đang chuẩn bị</span></h2>
+        <ul class="picks"><li>Năm phương án hero sẽ được bổ sung</li></ul>
+      </section>
+    </div>
+  </main>
+</body>
+</html>

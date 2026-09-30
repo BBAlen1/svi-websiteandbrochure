@@ -1,19 +1,4 @@
-/* ---- comparison page chrome ---- */
-.opt-intro { background: var(--cream); border-bottom: 1px solid var(--rule); }
-.opt-intro .wrap { padding-block: 48px 40px; }
-.opt-intro h1 { font-size: clamp(1.75rem, 1.2rem + 2vw, 2.5rem); font-weight: 300; }
-.opt-intro p { margin-top: 14px; max-width: 72ch; color: var(--ink-2); }
-.opt-label { background: var(--paper); border-top: 6px solid var(--cream-2); }
-.opt-label .wrap { padding-block: 36px 32px; }
-.opt-label__n { font-size: .75rem; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: var(--copper-text); }
-.opt-label__t { margin-top: 6px; font-size: clamp(1.375rem, 1.1rem + 1vw, 1.875rem); font-weight: 400; }
-.opt-label__what { margin-top: 10px; max-width: 80ch; color: var(--ink-2); }
-.opt-label__pc { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 32px; margin: 20px 0 0; }
-.opt-label__pc div { padding-top: 12px; border-top: 1px solid var(--rule); }
-.opt-label__pc dt { font-size: .75rem; color: var(--ink-3); }
-.opt-label__pc dd { margin: 4px 0 0; font-size: .9063rem; line-height: 1.6; color: var(--ink); }
-@media (max-width: 820px) { .opt-label__pc { grid-template-columns: 1fr; gap: 12px; } }
-
+/* Five hero treatments for Direction A. Each homepage variant uses one. */
 .hero { isolation: isolate; }
 .hero__grid { position: relative; z-index: 2; }
 .hero__side { display: grid; gap: 36px; align-content: end; }

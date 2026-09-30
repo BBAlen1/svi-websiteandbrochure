@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>SVI Group | Công ty Cổ phần Đầu tư Tầm Nhìn Phương Nam</title>
+  <meta name="robots" content="noindex">
   <meta name="description" content="SVI Group: nhà đầu tư đa ngành với trọng tâm là đầu tư và kinh doanh bất động sản, cùng các lĩnh vực dịch vụ ăn uống và giải trí, tài chính - công nghệ, năng lượng và môi trường, thương mại - xuất nhập khẩu.">
   <meta name="theme-color" content="#252C45">
   <link rel="icon" type="image/png" href="img/favicon.png">
@@ -11,22 +12,24 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/site.css">
+  <link rel="stylesheet" href="css/heroes.css">
 </head>
 <body>
   <a class="skip-link" href="#noi-dung">Bỏ qua điều hướng</a>
 
   <!-- Line icons: one 32px grid, 1.25 stroke, square caps, so all five read as one family -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-    <symbol id="i-bat-dong-san" viewBox="0 0 32 32"><path d="M3 29h26"/><path d="M6 29V14h7v15"/><path d="M13 29V4h9v25"/><path d="M22 29V11h5v18"/><path d="M16.5 9h2M16.5 13h2M16.5 17h2M16.5 21h2M9 19h1M9 23h1"/></symbol>
-    <symbol id="i-an-uong" viewBox="0 0 32 32"><path d="M3 29h22"/><path d="M6 13h15v7a6 6 0 0 1-6 6h-3a6 6 0 0 1-6-6z"/><path d="M21 15h2.5a2.5 2.5 0 0 1 0 5H21"/><path d="M10 4v5M13.5 4v5M17 4v5"/></symbol>
-    <symbol id="i-tai-chinh" viewBox="0 0 32 32"><path d="M3 29h26"/><path d="M7 29v-6M13 29v-9M19 29v-7M25 29V15"/><path d="M5 16l8-7 6 4 8-8"/><path d="M22 5h5v5"/></symbol>
-    <symbol id="i-nang-luong" viewBox="0 0 32 32"><path d="M16 3c5.5 6 9 11 9 16.5a9 9 0 0 1-18 0C7 14 10.5 9 16 3z"/><path d="M17.5 13l-4 7h5l-4 7"/></symbol>
-    <symbol id="i-thuong-mai" viewBox="0 0 32 32"><path d="M3 21h26l-3.5 7h-19z"/><path d="M7 21v-5h6v5M13 21v-9h6v9M19 21v-6h6v6"/><path d="M16 12V5"/></symbol>
+    <symbol id="i-bat-dong-san" viewBox="0 0 32 32"><path pathLength="1" d="M3 29h26"/><path pathLength="1" d="M6 29V14h7v15"/><path pathLength="1" d="M13 29V4h9v25"/><path pathLength="1" d="M22 29V11h5v18"/><path pathLength="1" d="M16.5 9h2M16.5 13h2M16.5 17h2M16.5 21h2M9 19h1M9 23h1"/></symbol>
+    <symbol id="i-an-uong" viewBox="0 0 32 32"><path pathLength="1" d="M3 29h22"/><path pathLength="1" d="M6 13h15v7a6 6 0 0 1-6 6h-3a6 6 0 0 1-6-6z"/><path pathLength="1" d="M21 15h2.5a2.5 2.5 0 0 1 0 5H21"/><path pathLength="1" d="M10 4v5M13.5 4v5M17 4v5"/></symbol>
+    <symbol id="i-tai-chinh" viewBox="0 0 32 32"><path pathLength="1" d="M3 29h26"/><path pathLength="1" d="M7 29v-6M13 29v-9M19 29v-7M25 29V15"/><path pathLength="1" d="M5 16l8-7 6 4 8-8"/><path pathLength="1" d="M22 5h5v5"/></symbol>
+    <symbol id="i-nang-luong" viewBox="0 0 32 32"><path pathLength="1" d="M16 3c5.5 6 9 11 9 16.5a9 9 0 0 1-18 0C7 14 10.5 9 16 3z"/><path pathLength="1" d="M17.5 13l-4 7h5l-4 7"/></symbol>
+    <symbol id="i-thuong-mai" viewBox="0 0 32 32"><path pathLength="1" d="M3 21h26l-3.5 7h-19z"/><path pathLength="1" d="M7 21v-5h6v5M13 21v-9h6v9M19 21v-6h6v6"/><path pathLength="1" d="M16 12V5"/></symbol>
   </svg>
 
+<!-- LATTICE -->
   <header class="site-header">
     <div class="wrap header-inner">
-      <a class="brand" href="index.html" aria-label="SVI Group, trang chủ">
+      <a class="brand" href="{{SELF}}" aria-label="SVI Group, trang chủ">
         <picture>
           <source type="image/webp" srcset="img/logo/svi-logo-ngang.webp">
           <img src="img/logo/svi-logo-ngang.png" width="711" height="144" alt="Southern Vision Investment">
@@ -41,7 +44,7 @@
           <li><a href="#gioi-thieu">Giới thiệu</a></li>
           <li><a href="#linh-vuc">Lĩnh vực hoạt động</a></li>
           <li><a href="#du-an">Dự án</a></li>
-          <li><a href="cong-ty-thanh-vien.html">Công ty thành viên</a></li>
+          <li><a href="huong-a-cong-ty-thanh-vien.html">Công ty thành viên</a></li>
           <li><a href="#lien-he">Liên hệ</a></li>
         </ul>
         <div class="lang" role="group" aria-label="Ngôn ngữ">
@@ -54,36 +57,7 @@
 
   <main id="noi-dung">
 
-    <!-- 1. Hero: no photograph; type, one copper rule, the five lines -->
-    <section class="hero on-dark" id="gioi-thieu" aria-labelledby="hero-title">
-      <div class="wrap hero__grid">
-        <div class="fade-in">
-          <p class="eyebrow">SVI Group</p>
-          <h1 id="hero-title">
-            <span class="hero__kicker">Công ty Cổ phần Đầu tư</span>
-            Tầm Nhìn Phương Nam
-            <span class="en" lang="en">Southern Vision Investment Corporation</span>
-          </h1>
-          <span class="rule-copper" aria-hidden="true"></span>
-          <p class="hero__lead">Nhà đầu tư đa ngành với trọng tâm là đầu tư và kinh doanh bất động sản, kế thừa kinh nghiệm và đội ngũ của Công ty Tân Liên Phát, chủ đầu tư ban đầu của dự án Khu phức hợp Tân Cảng Sài Gòn (Vinhomes Central Park).</p>
-          <div class="hero__actions">
-            <a class="link-arrow" href="#du-an">Danh mục dự án</a>
-            <a class="link-arrow" href="#lien-he">Liên hệ hợp tác</a>
-          </div>
-        </div>
-        <nav class="hero__lines fade-in fade-in--2" aria-label="Năm lĩnh vực hoạt động">
-          <p class="hero__lines-title">Năm lĩnh vực hoạt động</p>
-          <ol>
-            <li><a href="#linh-vuc-1"><span class="num">01</span>Bất Động Sản</a></li>
-            <li><a href="#linh-vuc-2"><span class="num">02</span>Dịch Vụ Ăn Uống và Giải Trí</a></li>
-            <li><a href="#linh-vuc-3"><span class="num">03</span>Tài Chính - Công Nghệ</a></li>
-            <li><a href="#linh-vuc-4"><span class="num">04</span>Năng Lượng và Môi Trường</a></li>
-            <li><a href="#linh-vuc-5"><span class="num">05</span>Thương Mại - Xuất Nhập Khẩu</a></li>
-          </ol>
-        </nav>
-      </div>
-      <div class="lattice-band lattice-band--copper" aria-hidden="true"></div>
-    </section>
+<!-- HERO -->
 
     <!-- 2. Capability figures: deliberately unfilled -->
     <section class="figures" aria-labelledby="figures-title">
@@ -391,7 +365,7 @@
           <p class="eyebrow">Công ty thành viên</p>
           <h2 class="h-section" id="members-title">Mô hình hoạt động</h2>
           <p>SVI Group vận hành theo mô hình Công ty mẹ và các đơn vị chuyên doanh. Các phòng, ban tại Bộ máy trung tâm hỗ trợ, giám sát và tư vấn hoạt động, đồng thời dẫn dắt các Hội đồng thẩm định và phê duyệt quyết định đầu tư.</p>
-          <a class="link-arrow" href="cong-ty-thanh-vien.html">Xem công ty thành viên</a>
+          <a class="link-arrow" href="huong-a-cong-ty-thanh-vien.html">Xem công ty thành viên</a>
         </div>
         <ul class="members__list">
           <li><span class="num">01</span><span class="line">Bất Động Sản</span><span class="co"><span>Các công ty dự án</span></span></li>
@@ -446,6 +420,7 @@
     </div>
   </footer>
 
+<!-- SWITCHER -->
   <script src="js/site.js"></script>
 </body>
 </html>

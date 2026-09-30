@@ -1,15 +1,27 @@
 # SVI Group homepage preview, Direction A (conservative institutional)
 
-`index.html` and `cong-ty-thanh-vien.html` in this folder are single, self-contained files. CSS, JS and images are all embedded, so each one works when downloaded and opened on its own. The only external request is Google Fonts (Be Vietnam Pro). For the link between the two pages to work, keep both files in the same folder.
+Every HTML file at the top level of this repo is a single, self-contained page. CSS, JS and images are all embedded, so each one works when downloaded and opened on its own. The only external request is Google Fonts (Be Vietnam Pro).
 
-Don't edit those two files by hand. They're generated from `src/`:
+| File | What it is |
+|---|---|
+| `index.html` | Picker listing every design variant (start here) |
+| `huong-a-1.html` to `huong-a-5.html` | Direction A homepage, one per hero design. A small switcher in the bottom-right corner jumps between them |
+| `huong-a-cong-ty-thanh-vien.html` | Direction A member companies page (draft content) |
 
-- `src/index.html`, `src/cong-ty-thanh-vien.html`: the pages
-- `src/css/site.css`: shared stylesheet
-- `src/js/site.js`: mobile menu toggle, the only script
-- `src/img/`: images, each as WebP plus a JPEG/PNG fallback
+Links between pages only work when the files sit in the same folder, as they do here.
 
-After changing anything in `src/`, run `python3 build.py` to regenerate the standalone files. The standalone files embed only the WebP images. This keeps the homepage at about 0.9 MB, but it means browsers from before 2020 won't show the images. The `src/` version keeps the JPEG/PNG fallbacks.
+## Editing
+
+Don't edit the top-level files by hand. They're generated from `src/` by `python3 build.py`:
+
+- `src/home.html`: the Direction A homepage, with a `<!-- HERO -->` slot
+- `src/heroes/hero-1.html` to `hero-5.html`: the five hero designs that fill that slot; their styles are in `src/css/heroes.css`
+- `src/cong-ty-thanh-vien.html`: the member companies page
+- `src/picker.html`: the picker page; the variant list comes from `VARIANTS_A` in `build.py`
+- `src/css/site.css`, `src/js/site.js`: shared styles, the mobile menu, and the scroll animations
+- `src/img/`: images, each as WebP plus a JPEG/PNG fallback. The built files embed only the WebP versions, so browsers from before 2020 won't show the images
+
+All motion (hero entrance, scroll reveals, icon drawing, hero animations) switches off automatically when the viewer's device asks for reduced motion.
 
 ## Where the assets came from
 
