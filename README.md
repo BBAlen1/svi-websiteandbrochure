@@ -5,19 +5,19 @@ Every HTML file at the top level of this repo is a single, self-contained page. 
 | File | What it is |
 |---|---|
 | `index.html` | Picker listing every design variant (start here) |
-| `huong-a-1.html` to `huong-a-5.html` | Direction A homepage, one per hero design. A small switcher in the bottom-right corner jumps between them |
-| `huong-a-cong-ty-thanh-vien.html` | Direction A member companies page (draft content) |
+| `huong-a/hero-1.html` to `hero-5.html` | Direction A homepage, one per hero design. A small switcher in the bottom-right corner jumps between them |
+| `huong-a/cong-ty-thanh-vien.html` | Direction A member companies page (draft content) |
 
-Links between pages only work when the files sit in the same folder, as they do here.
+Links between pages only work when the folder structure is kept as it is here. `src/` holds the editable source and can be ignored when reviewing designs.
 
 ## Editing
 
-Don't edit the top-level files by hand. They're generated from `src/` by `python3 build.py`:
+Don't edit the top-level files by hand. They're generated from `src/` by running `python3 src/build.py` from the repo root:
 
-- `src/home.html`: the Direction A homepage, with a `<!-- HERO -->` slot
-- `src/heroes/hero-1.html` to `hero-5.html`: the five hero designs that fill that slot; their styles are in `src/css/heroes.css`
-- `src/cong-ty-thanh-vien.html`: the member companies page
-- `src/picker.html`: the picker page; the variant list comes from `VARIANTS_A` in `build.py`
+- `src/huong-a/home.html`: the Direction A homepage, with a `<!-- HERO -->` slot
+- `src/huong-a/heroes/hero-1.html` to `hero-5.html`: the five hero designs that fill that slot; their styles are in `src/css/heroes.css`
+- `src/huong-a/cong-ty-thanh-vien.html`: the member companies page
+- `src/picker.html`: the picker page; the variant list comes from `VARIANTS_A` in `src/build.py`
 - `src/css/site.css`, `src/js/site.js`: shared styles, the mobile menu, and the scroll animations
 - `src/img/`: images, each as WebP plus a JPEG/PNG fallback. The built files embed only the WebP versions, so browsers from before 2020 won't show the images
 

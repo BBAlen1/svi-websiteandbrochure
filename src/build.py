@@ -1,22 +1,22 @@
 #!/usr/bin/env python3
 """Build the standalone preview files from src/.
 
-Outputs (repo root), each a single self-contained HTML file:
-  index.html                          picker listing every variant
-  huong-a-1.html ... huong-a-5.html   Direction A homepage, one per hero design
-  huong-a-cong-ty-thanh-vien.html     Direction A member companies page
+Outputs, each a single self-contained HTML file:
+  index.html                        picker listing every variant (repo root)
+  huong-a/hero-1.html ... hero-5.html  Direction A homepage, one per hero design
+  huong-a/cong-ty-thanh-vien.html   Direction A member companies page
 
 CSS, JS, WebP images, SVG patterns and the favicon are inlined as data URIs, so
 every file works when downloaded on its own. Only Google Fonts stays external.
 
-Usage: python3 build.py
+Usage (from the repo root): python3 src/build.py
 """
 import base64
 import pathlib
 import re
 
-ROOT = pathlib.Path(__file__).resolve().parent
-SRC = ROOT / "src"
+SRC = pathlib.Path(__file__).resolve().parent
+ROOT = SRC.parent
 MIME = {".webp": "image/webp", ".png": "image/png", ".jpg": "image/jpeg", ".svg": "image/svg+xml"}
 
 # Direction A hero variants: (file suffix, short name, one-line description, recommended)
@@ -70,12 +70,12 @@ def write(name: str, html: str) -> None:
 
 def switcher(current: str) -> str:
     links = "".join(
-        f'<a href="huong-a-{n}.html"{CURRENT if n == current else ""} title="Hero {n}: {name}">{n}</a>'
+        f'<a href="hero-{n}.html"{CURRENT if n == current else ""} title="Hero {n}: {name}">{n}</a>'
         for n, name, _, _ in VARIANTS_A
     )
     return (
         '  <nav class="variant-switch" aria-label="Chọn phương án hero (chỉ dùng khi duyệt thiết kế)">'
-        f'<a class="lbl" href="index.html" title="Tất cả phương án">Hướng A · Hero</a>{links}</nav>'
+        f'<a class="lbl" href="../index.html" title="Tất cả phương án">Hướng A · Hero</a>{links}</nav>'
     )
 
 
@@ -83,26 +83,26 @@ CURRENT = ' aria-current="page"'
 
 
 def build_direction_a() -> None:
-    home = (SRC / "home.html").read_text(encoding="utf-8")
-    lattice = (SRC / "heroes" / "lattice-symbol.html").read_text(encoding="utf-8")
+    home = (SRC / "huong-a" / "home.html").read_text(encoding="utf-8")
+    lattice = (SRC / "huong-a" / "heroes" / "lattice-symbol.html").read_text(encoding="utf-8")
     for n, _, _, _ in VARIANTS_A:
-        page_name = f"huong-a-{n}.html"
-        hero = (SRC / "heroes" / f"hero-{n}.html").read_text(encoding="utf-8")
+        page_name = f"huong-a/hero-{n}.html"
+        hero = (SRC / "huong-a" / "heroes" / f"hero-{n}.html").read_text(encoding="utf-8")
         html = (
             home.replace("<!-- HERO -->", hero)
             .replace("<!-- LATTICE -->", lattice if n == "2" else "")
             .replace("<!-- SWITCHER -->", switcher(n))
-            .replace("{{SELF}}", page_name)
+            .replace("{{SELF}}", f"hero-{n}.html")
             .replace("<title>SVI Group |", f"<title>Hướng A · Hero {n} | SVI Group |")
         )
         write(page_name, html)
-    write("huong-a-cong-ty-thanh-vien.html", (SRC / "cong-ty-thanh-vien.html").read_text(encoding="utf-8"))
+    write("huong-a/cong-ty-thanh-vien.html", (SRC / "huong-a" / "cong-ty-thanh-vien.html").read_text(encoding="utf-8"))
 
 
 def build_picker() -> None:
     items = "\n".join(
         f"""        <li>
-          <a class="pick" href="huong-a-{n}.html">
+          <a class="pick" href="huong-a/hero-{n}.html">
             <span class="pick__n">Hero {n}</span>
             <span class="pick__t">{name}{' <em>Đề xuất</em>' if rec else ''}</span>
             <span class="pick__d">{desc}</span>
