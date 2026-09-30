@@ -1886,6 +1886,38 @@ p { margin: 0; }
     onScroll();
   }
 
+  // ---- Project map (Direction B): pins and region list highlight each other ----
+  var pins = document.querySelectorAll(".vn-map .pin");
+  if (pins.length) {
+    var regionEls = document.querySelectorAll(".pin[data-region], .b-region[data-region]");
+    var activate = function (id) {
+      regionEls.forEach(function (el) { el.classList.toggle("is-active", el.getAttribute("data-region") === id); });
+    };
+    regionEls.forEach(function (el) {
+      var id = el.getAttribute("data-region");
+      el.addEventListener("mouseenter", function () { activate(id); });
+      el.addEventListener("focusin", function () { activate(id); });
+    });
+    pins.forEach(function (pin) {
+      var go = function () {
+        var id = pin.getAttribute("data-region");
+        activate(id);
+        var target = document.querySelector('.b-region[data-region="' + id + '"]');
+        if (target && window.matchMedia("(max-width: 900px)").matches) target.scrollIntoView({ behavior: "smooth", block: "center" });
+      };
+      pin.addEventListener("click", go);
+      pin.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
+    });
+    document.querySelectorAll(".b-region a[href^='#p-']").forEach(function (a) {
+      a.addEventListener("click", function () {
+        var card = document.querySelector(a.getAttribute("href"));
+        if (!card) return;
+        card.classList.add("is-target");
+        setTimeout(function () { card.classList.remove("is-target"); }, 2200);
+      });
+    });
+  }
+
   // ---- Scroll reveal (skipped entirely for reduced motion) ----
   if (!("IntersectionObserver" in window) || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
@@ -1893,7 +1925,7 @@ p { margin: 0; }
     ".split-head", ".figures__head", ".figure", ".partner-grid li", ".line-item",
     ".projects__sub", ".feature", ".card-grid > li", ".members__intro", ".members__list li",
     ".page-head .wrap > *", ".model__center", ".model__branches > li", ".line-section__head",
-    ".co-card", ".table-wrap", ".footer-grid > div"
+    ".co-card", ".table-wrap", ".footer-grid > div", ".rv"
   ];
   groups.forEach(function (sel) {
     var parents = new Map();
