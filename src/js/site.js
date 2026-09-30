@@ -67,6 +67,34 @@
     });
   }
 
+  // ---- Live figures hero: rotate facts and count each one up ----
+  var figs = document.querySelectorAll(".fig__i");
+  if (figs.length) {
+    var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var fmt = function (v, dec) {
+      var s = v.toFixed(dec).split(".");
+      s[0] = s[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      return s.join(",");
+    };
+    var show = function (i) {
+      figs.forEach(function (f, j) { f.classList.toggle("is-on", i === j); });
+      var el = figs[i], out = el.querySelector(".fig__v");
+      var target = parseFloat(el.getAttribute("data-value")), dec = +el.getAttribute("data-dec");
+      if (reduce) { out.textContent = fmt(target, dec); return; }
+      var t0 = null;
+      var step = function (ts) {
+        if (!t0) t0 = ts;
+        var p = Math.min(1, (ts - t0) / 1600), e = 1 - Math.pow(1 - p, 3);
+        out.textContent = fmt(target * e, dec);
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    };
+    var cur = 0;
+    show(0);
+    if (!reduce) setInterval(function () { cur = (cur + 1) % figs.length; show(cur); }, 5200);
+  }
+
   // ---- Scroll reveal (skipped entirely for reduced motion) ----
   if (!("IntersectionObserver" in window) || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 

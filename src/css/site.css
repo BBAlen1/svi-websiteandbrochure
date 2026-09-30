@@ -1283,3 +1283,13 @@ p { margin: 0; }
 .variant-switch .lbl { padding: 0 10px 0 12px; color: var(--champagne); letter-spacing: .08em; }
 @media (max-width: 520px) { .variant-switch .lbl { display: none; } }
 @media print { .variant-switch { display: none; } }
+
+/* English company name set in the logo's typeface (Audiowide, from the brand identity PDF).
+   Audiowide has no Vietnamese glyphs, so Vietnamese names stay in Be Vietnam Pro / the serif. */
+.en[lang="en"], .name-en[lang="en"] {
+  font-family: "Audiowide", var(--font);
+  font-weight: 400;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.site-footer .name-en[lang="en"] { font-size: .75rem; }

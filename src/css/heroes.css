@@ -1,97 +1,133 @@
-/* Five hero treatments for Direction A. Each homepage variant uses one. */
-.hero { isolation: isolate; }
-.hero__grid { position: relative; z-index: 2; }
-.hero__side { display: grid; gap: 36px; align-content: end; }
+/* Direction A heroes (navy). Each homepage variant uses one. Shared shell first. */
+.ah { isolation: isolate; }
+.ah .hero__grid { position: relative; z-index: 2; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); align-items: center; padding-bottom: clamp(48px, 6vw, 72px); }
+.ah h1 { font-size: clamp(2.5rem, 1.4rem + 4vw, 4.5rem); }
 
-/* 1. Brand light peaks */
-.beams { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; }
-.hero--beams::after {
-  content: ""; position: absolute; inset: 0; z-index: 1;
-  background: linear-gradient(90deg, var(--navy) 18%, rgba(37,44,69,.75) 45%, rgba(37,44,69,0) 75%);
-}
-.peak { transform-box: fill-box; transform-origin: 50% 0; }
-@media (prefers-reduced-motion: no-preference) {
-  .peak--1 { animation: drift 38s ease-in-out infinite alternate; }
-  .peak--2 { animation: drift 46s ease-in-out -12s infinite alternate-reverse; }
-  .peak--3 { animation: drift 52s ease-in-out -20s infinite alternate; }
-  .peak__lit { animation: breathe 9s ease-in-out infinite; }
-  .peak--2 .peak__lit { animation-delay: -3s; }
-  .peak--3 .peak__lit { animation-delay: -6s; }
-}
-@keyframes drift { from { transform: translate(0, 0); } to { transform: translate(-36px, 14px); } }
-@keyframes breathe { 0%, 100% { opacity: .75; } 50% { opacity: 1; } }
-
-/* 2. Lattice with a slow light sweep */
-.lat-wrap {
-  position: absolute; inset: 0 0 0 38%; z-index: 0;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 35%);
-          mask-image: linear-gradient(90deg, transparent, #000 35%);
-}
-.lat { position: absolute; inset: 0; width: 100%; height: 100%; }
-.lat--base { fill: var(--champagne); opacity: .16; }
-.lat--glow {
-  fill: #F5BD85; stroke: #F5BD85; stroke-width: .3; opacity: .42;
-  -webkit-mask-image: linear-gradient(115deg, transparent 34%, #000 50%, transparent 66%);
-          mask-image: linear-gradient(115deg, transparent 34%, #000 50%, transparent 66%);
-  -webkit-mask-size: 300% 100%; mask-size: 300% 100%;
-  -webkit-mask-position: 100% 0; mask-position: 100% 0;
-}
-@media (prefers-reduced-motion: no-preference) {
-  .lat--glow { animation: sweep 14s linear infinite; }
-}
-@media (prefers-reduced-motion: reduce) { .lat--glow { display: none; } }
-@keyframes sweep {
-  from { -webkit-mask-position: 100% 0; mask-position: 100% 0; }
-  to { -webkit-mask-position: 0% 0; mask-position: 0% 0; }
-}
-
-/* 3. Duotone framed image */
-.duo { position: relative; margin: 0; }
-.duo img { width: 100%; aspect-ratio: 5 / 2; object-fit: cover; }
-.duo::before {
-  content: ""; position: absolute; left: -12px; top: -12px; width: 56px; height: 56px;
-  border-left: 1px solid var(--copper); border-top: 1px solid var(--copper);
-}
-.duo figcaption { margin-top: 10px; font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.6); }
-@media (prefers-reduced-motion: no-preference) { .duo img { animation: fade-in 1.4s ease-out both; } }
-
-/* 4. Mosaic */
-.mosaic { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; margin: 0; padding: 0; list-style: none; }
-.mosaic li { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: var(--navy-700); }
-.mosaic figure { position: absolute; inset: 0; margin: 0; }
-.mosaic picture, .mosaic img { width: 100%; height: 100%; object-fit: cover; }
-.mosaic figcaption {
-  position: absolute; left: 0; right: 0; bottom: 0; padding: 18px 8px 6px;
-  font-size: .6875rem; line-height: 1.3; color: #fff;
-  background: linear-gradient(transparent, rgba(27,32,51,.85));
-}
-.mosaic .alt { opacity: 0; }
-@media (prefers-reduced-motion: no-preference) {
-  .mosaic .alt { animation: swap 12s ease-in-out var(--d) infinite; }
-}
-@keyframes swap { 0%, 38% { opacity: 0; } 50%, 88% { opacity: 1; } 100% { opacity: 0; } }
-
-/* 5. Slow panorama */
-.pan { position: absolute; inset: 0 0 0 30%; z-index: 0; overflow: hidden; }
-.pan picture { position: absolute; inset: 0; }
-.pan__img {
-  width: 100%; height: 100%; object-fit: cover; object-position: 70% 50%;
-  filter: saturate(.7) brightness(.62); transform-origin: 70% 50%;
-}
-.hero--pan::after {
-  content: ""; position: absolute; inset: 0; z-index: 1;
-  background:
-    linear-gradient(90deg, var(--navy) 30%, rgba(37,44,69,.7) 50%, rgba(37,44,69,.15) 85%),
-    linear-gradient(0deg, var(--navy), transparent 30%);
-}
-@media (prefers-reduced-motion: no-preference) {
-  .pan__img { animation: kenburns 28s ease-in-out infinite alternate; }
-}
-@keyframes kenburns { from { transform: scale(1.04) translateX(0); } to { transform: scale(1.14) translateX(-3%); } }
-
+/* Business lines as a band under every hero */
+.ah-band { position: relative; z-index: 2; border-top: 1px solid var(--rule-light); }
+.ah-band ol { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); margin: 0; padding: 0; list-style: none; }
+.ah-band li + li { border-left: 1px solid var(--rule-light); }
+.ah-band a { display: flex; gap: 10px; align-items: baseline; height: 100%; padding: 20px 16px 26px; color: rgba(255,255,255,.88); font-size: .875rem; line-height: 1.45; text-decoration: none; transition: color .2s ease, background .2s ease; }
+.ah-band li:first-child a { padding-left: 0; }
+.ah-band a:hover { color: var(--champagne); background: rgba(255,255,255,.03); }
+.ah-band .num { font-size: .75rem; font-weight: 500; color: var(--copper); }
 @media (max-width: 900px) {
-  .lat-wrap { inset: 0; opacity: .7; }
-  .pan { inset: 0; }
-  .hero--pan::after { background: linear-gradient(0deg, var(--navy) 35%, rgba(37,44,69,.6)); }
-  .hero--beams::after { background: linear-gradient(0deg, var(--navy) 40%, rgba(37,44,69,.55)); }
+  .ah .hero__grid { grid-template-columns: 1fr; }
+  .ah-band ol { grid-template-columns: 1fr; }
+  .ah-band li + li { border-left: 0; border-top: 1px solid var(--rule-light); }
+  .ah-band a { padding: 14px 0; }
 }
+.motion .ah-band li { animation: rise .8s cubic-bezier(.2,.7,.2,1) both; }
+.motion .ah-band li:nth-child(1) { animation-delay: .5s; } .motion .ah-band li:nth-child(2) { animation-delay: .58s; }
+.motion .ah-band li:nth-child(3) { animation-delay: .66s; } .motion .ah-band li:nth-child(4) { animation-delay: .74s; }
+.motion .ah-band li:nth-child(5) { animation-delay: .82s; }
+.motion .ah .hero__grid > :last-child:not(.hero__text) { animation: fade-in 1.4s .25s ease-out both; }
+
+/* ---- A1: project reel ---- */
+.ah-reel {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px;
+  height: clamp(420px, 44vw, 600px); overflow: hidden;
+  -webkit-mask-image: linear-gradient(transparent, #000 14%, #000 86%, transparent);
+          mask-image: linear-gradient(transparent, #000 14%, #000 86%, transparent);
+}
+.reel-col { display: flex; flex-direction: column; gap: 14px; margin: 0; padding: 0; list-style: none; }
+.reel-col li { position: relative; }
+.reel-col .tile { aspect-ratio: 4 / 5; background: var(--navy-700) center / cover no-repeat; }
+.reel-col span { position: absolute; left: 0; right: 0; bottom: 0; padding: 28px 12px 10px; font-size: .75rem; color: #fff; background: linear-gradient(transparent, rgba(27,32,51,.85)); }
+@media (prefers-reduced-motion: no-preference) {
+  .reel-col.up { animation: reel-up 48s linear infinite; }
+  .reel-col.down { animation: reel-down 48s linear infinite; }
+  .ah-reel:hover .reel-col { animation-play-state: paused; }
+}
+@keyframes reel-up { from { transform: translateY(0); } to { transform: translateY(calc(-50% - 7px)); } }
+@keyframes reel-down { from { transform: translateY(calc(-50% - 7px)); } to { transform: translateY(0); } }
+@media (max-width: 900px) { .ah-reel { height: 380px; } }
+
+/* ---- A2: gallery with figures ---- */
+.gal { width: 100%; max-width: 560px; justify-self: end; }
+.gal__frame { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: var(--navy-700); }
+.gal__s { position: absolute; inset: 0; margin: 0; opacity: 0; }
+.gal__s:first-child { opacity: 1; }
+.gal__s picture, .gal__s img { width: 100%; height: 100%; object-fit: cover; }
+.gal__s figcaption {
+  position: absolute; left: 0; right: 0; bottom: 0; padding: 56px 22px 18px;
+  background: linear-gradient(transparent, rgba(27,32,51,.92)); color: #fff;
+}
+.gal__t { display: block; font-size: .6875rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--champagne); }
+.gal__s b { display: block; margin-top: 4px; font-size: 1.25rem; font-weight: 400; }
+.gal__f { display: block; margin-top: 2px; font-size: .875rem; color: rgba(255,255,255,.75); font-variant-numeric: tabular-nums; }
+.gal__ticks { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin: 14px 0 0; padding: 0; list-style: none; }
+.gal__ticks li { height: 2px; background: rgba(255,255,255,.15); overflow: hidden; }
+.gal__ticks span { display: block; height: 100%; background: var(--grad); transform: scaleX(0); transform-origin: left; }
+@media (prefers-reduced-motion: no-preference) {
+  .gal__s { animation: gal-s 30s linear infinite; animation-delay: calc(var(--i) * 6s); }
+  .gal__s:first-child { opacity: 0; }
+  .gal__s img { animation: gal-k 30s linear infinite; animation-delay: calc(var(--i) * 6s); }
+  .gal__ticks span { animation: gal-t 30s linear infinite; animation-delay: calc(var(--i) * 6s); }
+}
+@keyframes gal-s { 0% { opacity: 0; } 3% { opacity: 1; } 20% { opacity: 1; } 23% { opacity: 0; } 100% { opacity: 0; } }
+@keyframes gal-k { 0% { transform: scale(1.0); } 23% { transform: scale(1.07); } 100% { transform: scale(1.07); } }
+@keyframes gal-t { 0% { transform: scaleX(0); } 20% { transform: scaleX(1); } 21%, 100% { transform: scaleX(0); } }
+@media (max-width: 900px) { .gal { justify-self: stretch; max-width: none; } }
+
+/* ---- A3: live figures ---- */
+.fig { width: 100%; max-width: 520px; justify-self: end; }
+.fig__list { position: relative; margin: 0; padding: 0; list-style: none; min-height: 470px; }
+.fig__i { position: absolute; inset: 0 0 auto 0; opacity: 0; visibility: hidden; transition: opacity .8s ease, visibility 0s .8s; }
+.fig__i.is-on { opacity: 1; visibility: visible; transition: opacity .8s ease; }
+.fig__img { aspect-ratio: 16 / 9; overflow: hidden; background: var(--navy-700); }
+.fig__img picture, .fig__img img { width: 100%; height: 100%; object-fit: cover; }
+.fig__i.is-on .fig__img img { animation: fig-k 6s ease-out both; }
+@keyframes fig-k { from { transform: scale(1.06); } to { transform: scale(1); } }
+.fig__num { margin-top: 22px; font-size: clamp(3.25rem, 2rem + 4vw, 5.25rem); font-weight: 300; line-height: 1; letter-spacing: -.02em; font-variant-numeric: tabular-nums; color: #fff; }
+.fig__u { font-size: .32em; font-weight: 400; letter-spacing: 0; color: var(--champagne); }
+.fig__l { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--rule-light); font-size: .875rem; color: rgba(255,255,255,.7); }
+.fig__l b { display: block; margin-top: 2px; font-size: 1.0625rem; font-weight: 400; color: #fff; }
+.fig__src { margin-top: 10px; font-size: .75rem; color: rgba(255,255,255,.45); }
+@media (max-width: 900px) { .fig { justify-self: stretch; max-width: none; } .fig__list { min-height: 0; aspect-ratio: auto; } .fig__i { position: relative; } .fig__i:not(.is-on) { display: none; } }
+
+/* ---- A4: brand mark with light sweep ---- */
+.mk { position: relative; justify-self: center; width: 100%; max-width: 420px; aspect-ratio: 420 / 560; }
+.mk__glow { position: absolute; inset: 8% -10% 12%; background: radial-gradient(closest-side, rgba(200,131,79,.35), rgba(200,131,79,0)); filter: blur(10px); }
+.mk__logo { position: absolute; left: 50%; top: 4%; width: 62%; transform: translateX(-50%); aspect-ratio: 545 / 900; }
+.mk__img { width: 100%; height: auto; filter: drop-shadow(0 24px 30px rgba(0,0,0,.45)); }
+.mk__shine {
+  position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(105deg, transparent 35%, rgba(255,245,230,.85) 50%, transparent 65%) no-repeat;
+  background-size: 250% 100%; background-position: 150% 0;
+  -webkit-mask: url("../img/hero2/svi-mark-lg.webp") center / contain no-repeat;
+          mask: url("../img/hero2/svi-mark-lg.webp") center / contain no-repeat;
+  mix-blend-mode: soft-light;
+}
+.mk__floor { position: absolute; left: 12%; right: 12%; bottom: 4%; height: 18px; border-radius: 50%; background: radial-gradient(closest-side, rgba(0,0,0,.45), transparent); }
+@media (prefers-reduced-motion: no-preference) {
+  .mk__logo { animation: mk-float 9s ease-in-out infinite; }
+  .mk__shine { animation: mk-shine 7s cubic-bezier(.4,0,.2,1) 1.2s infinite; }
+  .mk__glow { animation: glow 8s ease-in-out infinite; }
+}
+@keyframes mk-float { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, -10px); } }
+@keyframes mk-shine { 0% { background-position: 150% 0; } 45%, 100% { background-position: -50% 0; } }
+@keyframes glow { 0%, 100% { opacity: .7; } 50% { opacity: 1; } }
+@media (max-width: 900px) { .mk { max-width: 280px; } }
+
+/* ---- A5: portfolio wall with moving spotlight ---- */
+.ah-wall {
+  position: absolute; z-index: 0; top: 0; right: 0; bottom: 0; width: 58%;
+  display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 1fr; gap: 6px; margin: 0; padding: 6px; list-style: none;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 28%); mask-image: linear-gradient(90deg, transparent, #000 28%);
+}
+.ah-wall li { position: relative; overflow: hidden; }
+.ah-wall .tile { position: absolute; inset: 0; background: var(--navy-700) center / cover no-repeat; filter: grayscale(.6) brightness(.45); transition: filter .6s ease; }
+.ah-wall li:hover .tile { filter: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .ah-wall .tile { animation: spot 24s ease-in-out infinite; animation-delay: calc(var(--o) * 2s); }
+}
+@keyframes spot { 0%, 100% { filter: grayscale(.6) brightness(.45); } 4%, 10% { filter: grayscale(0) brightness(1); } 16% { filter: grayscale(.6) brightness(.45); } }
+.ah--wall .hero__grid { grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); min-height: clamp(520px, 52vw, 660px); }
+.ah--wall::after { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, var(--navy) 36%, rgba(37,44,69,.2) 70%, rgba(37,44,69,0)); pointer-events: none; }
+@media (max-width: 900px) {
+  .ah-wall { width: 100%; opacity: .45; }
+  .ah--wall::after { background: linear-gradient(0deg, var(--navy) 30%, rgba(37,44,69,.7)); }
+  .ah--wall .hero__grid { min-height: 0; }
+}
+@media (max-width: 900px) { .ah--wall .hero__grid { grid-template-columns: 1fr; } }

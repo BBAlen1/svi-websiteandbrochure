@@ -1296,6 +1296,16 @@ p { margin: 0; }
 .variant-switch .lbl { padding: 0 10px 0 12px; color: var(--champagne); letter-spacing: .08em; }
 @media (max-width: 520px) { .variant-switch .lbl { display: none; } }
 @media print { .variant-switch { display: none; } }
+
+/* English company name set in the logo's typeface (Audiowide, from the brand identity PDF).
+   Audiowide has no Vietnamese glyphs, so Vietnamese names stay in Be Vietnam Pro / the serif. */
+.en[lang="en"], .name-en[lang="en"] {
+  font-family: "Audiowide", var(--font);
+  font-weight: 400;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.site-footer .name-en[lang="en"] { font-size: .75rem; }
 </style>
   <style>
     .picker { min-height: 100vh; background: var(--navy); color: #fff; }
@@ -1333,36 +1343,36 @@ p { margin: 0; }
         <li>
           <a class="pick" href="huong-a/hero-1.html">
             <span class="pick__n">Hero 1</span>
-            <span class="pick__t">Ánh sáng thương hiệu <em>Đề xuất</em></span>
-            <span class="pick__d">Các khối tam giác chiếu sáng dải đồng từ bìa bộ nhận diện, hoạt họa vector trôi chậm.</span>
+            <span class="pick__t">Dải ảnh dự án</span>
+            <span class="pick__d">Hai cột ảnh dự án trôi chậm ngược chiều nhau, dừng khi rê chuột.</span>
           </a>
         </li>
         <li>
           <a class="pick" href="huong-a/hero-2.html">
             <span class="pick__n">Hero 2</span>
-            <span class="pick__t">Lưới lattice, vệt sáng quét</span>
-            <span class="pick__d">Họa tiết lattice gốc của thương hiệu, một vệt sáng đồng quét qua khoảng 14 giây một lượt.</span>
+            <span class="pick__t">Trình chiếu dự án <em>Đề xuất</em></span>
+            <span class="pick__d">Năm dự án tiêu biểu lần lượt hiện ra, kèm quy mô và vốn đầu tư.</span>
           </a>
         </li>
         <li>
           <a class="pick" href="huong-a/hero-3.html">
             <span class="pick__n">Hero 3</span>
-            <span class="pick__t">Ảnh duotone trong khung</span>
-            <span class="pick__d">Toàn cảnh Vinhomes Central Park hai tông navy và champagne, đặt trong khung nhỏ.</span>
+            <span class="pick__t">Số liệu sống</span>
+            <span class="pick__d">Các con số thật từ hồ sơ (43,91 ha, 461,2 m, 30.000 tỷ...) đếm lên cùng ảnh dự án.</span>
           </a>
         </li>
         <li>
           <a class="pick" href="huong-a/hero-4.html">
             <span class="pick__n">Hero 4</span>
-            <span class="pick__t">Khảm ảnh dự án</span>
-            <span class="pick__d">Sáu ô ảnh dự án nhỏ, lần lượt chuyển sang dự án khác theo nhịp lệch nhau.</span>
+            <span class="pick__t">Biểu tượng thương hiệu</span>
+            <span class="pick__d">Logo chữ S khối đồng lơ lửng, có vệt sáng lướt qua.</span>
           </a>
         </li>
         <li>
           <a class="pick" href="huong-a/hero-5.html">
             <span class="pick__n">Hero 5</span>
-            <span class="pick__t">Toàn cảnh chuyển động chậm</span>
-            <span class="pick__d">Ảnh toàn cảnh tối màu phía sau chữ, trượt và phóng chậm thay cho video.</span>
+            <span class="pick__t">Bức tường danh mục</span>
+            <span class="pick__d">Lưới ảnh dự án tối màu phía sau chữ, lần lượt từng ô sáng lên.</span>
           </a>
         </li>
         </ul>
@@ -1375,36 +1385,36 @@ p { margin: 0; }
         <li>
           <a class="pick" href="huong-b/hero-1.html">
             <span class="pick__n">Hero 1</span>
-            <span class="pick__t">Bình minh trên biển <em>Đề xuất</em></span>
-            <span class="pick__d">Bìa tạp chí: mặt trời đồng nhô lên trên đường chân trời, mặt biển lấp lánh.</span>
+            <span class="pick__t">Xấp ảnh dự án</span>
+            <span class="pick__d">Các ảnh dự án in như ảnh chụp, lần lượt được rút ra khỏi xấp.</span>
           </a>
         </li>
         <li>
           <a class="pick" href="huong-b/hero-2.html">
             <span class="pick__n">Hero 2</span>
-            <span class="pick__t">Khung vòm</span>
-            <span class="pick__d">Ảnh bờ sông Sài Gòn trong khung vòm kiến trúc, trôi chậm.</span>
+            <span class="pick__t">Lật trang tạp chí</span>
+            <span class="pick__d">Ảnh dự án khổ dọc lần lượt hiện ra như lật trang, có số thứ tự.</span>
           </a>
         </li>
         <li>
           <a class="pick" href="huong-b/hero-3.html">
             <span class="pick__n">Hero 3</span>
-            <span class="pick__t">Dải phim dự án</span>
+            <span class="pick__t">Dải phim dự án <em>Đề xuất</em></span>
             <span class="pick__d">Dải ảnh dự án nhỏ chạy ngang liên tục dưới tiêu đề, dừng khi rê chuột.</span>
           </a>
         </li>
         <li>
           <a class="pick" href="huong-b/hero-4.html">
             <span class="pick__n">Hero 4</span>
-            <span class="pick__t">Mục lục năm lĩnh vực</span>
-            <span class="pick__d">Năm lĩnh vực như mục lục tạp chí; rê chuột vào mục nào, ảnh lĩnh vực đó hiện ra.</span>
+            <span class="pick__t">Năm lĩnh vực mở rộng</span>
+            <span class="pick__d">Năm dải ảnh lĩnh vực, lần lượt mở rộng; rê chuột để chọn.</span>
           </a>
         </li>
         <li>
           <a class="pick" href="huong-b/hero-5.html">
             <span class="pick__n">Hero 5</span>
-            <span class="pick__t">Tuyên ngôn</span>
-            <span class="pick__d">Tôn chỉ của SVI Group hiện ra từng chữ trên nền tím nâu.</span>
+            <span class="pick__t">Bộ ba khổ dọc</span>
+            <span class="pick__d">Ba ảnh dự án khổ dọc so le, ảnh trôi chậm lên xuống bên trong khung.</span>
           </a>
         </li>
         </ul>

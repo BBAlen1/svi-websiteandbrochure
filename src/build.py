@@ -22,22 +22,22 @@ MIME = {".webp": "image/webp", ".png": "image/png", ".jpg": "image/jpeg", ".svg"
 # Hero variants per direction: (number, short name, one-line description, recommended)
 DIRECTIONS = {
     "a": [
-        ("1", "Ánh sáng thương hiệu", "Các khối tam giác chiếu sáng dải đồng từ bìa bộ nhận diện, hoạt họa vector trôi chậm.", True),
-        ("2", "Lưới lattice, vệt sáng quét", "Họa tiết lattice gốc của thương hiệu, một vệt sáng đồng quét qua khoảng 14 giây một lượt.", False),
-        ("3", "Ảnh duotone trong khung", "Toàn cảnh Vinhomes Central Park hai tông navy và champagne, đặt trong khung nhỏ.", False),
-        ("4", "Khảm ảnh dự án", "Sáu ô ảnh dự án nhỏ, lần lượt chuyển sang dự án khác theo nhịp lệch nhau.", False),
-        ("5", "Toàn cảnh chuyển động chậm", "Ảnh toàn cảnh tối màu phía sau chữ, trượt và phóng chậm thay cho video.", False),
+        ("1", "Dải ảnh dự án", "Hai cột ảnh dự án trôi chậm ngược chiều nhau, dừng khi rê chuột.", False),
+        ("2", "Trình chiếu dự án", "Năm dự án tiêu biểu lần lượt hiện ra, kèm quy mô và vốn đầu tư.", True),
+        ("3", "Số liệu sống", "Các con số thật từ hồ sơ (43,91 ha, 461,2 m, 30.000 tỷ...) đếm lên cùng ảnh dự án.", False),
+        ("4", "Biểu tượng thương hiệu", "Logo chữ S khối đồng lơ lửng, có vệt sáng lướt qua.", False),
+        ("5", "Bức tường danh mục", "Lưới ảnh dự án tối màu phía sau chữ, lần lượt từng ô sáng lên.", False),
     ],
     "b": [
-        ("1", "Bình minh trên biển", "Bìa tạp chí: mặt trời đồng nhô lên trên đường chân trời, mặt biển lấp lánh.", True),
-        ("2", "Khung vòm", "Ảnh bờ sông Sài Gòn trong khung vòm kiến trúc, trôi chậm.", False),
-        ("3", "Dải phim dự án", "Dải ảnh dự án nhỏ chạy ngang liên tục dưới tiêu đề, dừng khi rê chuột.", False),
-        ("4", "Mục lục năm lĩnh vực", "Năm lĩnh vực như mục lục tạp chí; rê chuột vào mục nào, ảnh lĩnh vực đó hiện ra.", False),
-        ("5", "Tuyên ngôn", "Tôn chỉ của SVI Group hiện ra từng chữ trên nền tím nâu.", False),
+        ("1", "Xấp ảnh dự án", "Các ảnh dự án in như ảnh chụp, lần lượt được rút ra khỏi xấp.", False),
+        ("2", "Lật trang tạp chí", "Ảnh dự án khổ dọc lần lượt hiện ra như lật trang, có số thứ tự.", False),
+        ("3", "Dải phim dự án", "Dải ảnh dự án nhỏ chạy ngang liên tục dưới tiêu đề, dừng khi rê chuột.", True),
+        ("4", "Năm lĩnh vực mở rộng", "Năm dải ảnh lĩnh vực, lần lượt mở rộng; rê chuột để chọn.", False),
+        ("5", "Bộ ba khổ dọc", "Ba ảnh dự án khổ dọc so le, ảnh trôi chậm lên xuống bên trong khung.", False),
     ],
 }
 # Direction A's lattice hero needs the lattice <symbol> injected once per page.
-EXTRA_PARTIALS = {("a", "2"): "huong-a/heroes/lattice-symbol.html"}
+EXTRA_PARTIALS = {}
 
 
 def data_uri(path: pathlib.Path) -> str:
