@@ -23,8 +23,8 @@ MIME = {".webp": "image/webp", ".png": "image/png", ".jpg": "image/jpeg", ".svg"
 DIRECTIONS = {
     "a": [
         ("1", "Dải ảnh dự án", "Hai cột ảnh dự án trôi chậm ngược chiều nhau, dừng khi rê chuột.", False),
-        ("2", "Trình chiếu dự án", "Năm dự án tiêu biểu lần lượt hiện ra, kèm quy mô và vốn đầu tư.", True),
-        ("3", "Số liệu sống", "Các con số thật từ hồ sơ (43,91 ha, 461,2 m, 30.000 tỷ...) đếm lên cùng ảnh dự án.", False),
+        ("2", "Lưới lattice, vệt sáng quét", "Họa tiết lattice gốc của thương hiệu, một vệt sáng đồng quét qua khoảng 14 giây một lượt.", True),
+        ("3", "Toàn cảnh chuyển động chậm", "Ảnh toàn cảnh tối màu phía sau chữ, trượt và phóng chậm thay cho video.", False),
         ("4", "Biểu tượng thương hiệu", "Logo chữ S khối đồng lơ lửng, có vệt sáng lướt qua.", False),
         ("5", "Bức tường danh mục", "Lưới ảnh dự án tối màu phía sau chữ, lần lượt từng ô sáng lên.", False),
     ],
@@ -37,7 +37,7 @@ DIRECTIONS = {
     ],
 }
 # Direction A's lattice hero needs the lattice <symbol> injected once per page.
-EXTRA_PARTIALS = {}
+EXTRA_PARTIALS = {("a", "2"): "huong-a/heroes/lattice-symbol.html"}
 
 
 def data_uri(path: pathlib.Path) -> str:
