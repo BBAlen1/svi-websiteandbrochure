@@ -9,9 +9,12 @@ Every HTML file at the top level of this repo is a single, self-contained page. 
 | `huong-a/cong-ty-thanh-vien.html` | Direction A member companies page (draft content) |
 | `huong-b/hero-1.html` to `hero-5.html` | Direction B (editorial, warm) homepage, one per hero design |
 | `huong-b/cong-ty-thanh-vien.html` | Direction B member companies page (draft content) |
+| `huong-c/hero-1.html` to `hero-5.html` | Direction C (bold, modern) homepage, one per hero design |
+| `huong-c/cong-ty-thanh-vien.html` | Direction C member companies page (draft content) |
 
 **Direction A: conservative institutional.** Navy, sans-serif, restrained; closer to CapitaLand or Keppel.
 **Direction B: editorial and warm.** Cream, plum and copper, with a serif for headings (Noto Serif Display). It's laid out like a magazine, with numbered chapters, an interactive project map, and SVI's own vision, mission, values and motto from the company profile.
+**Direction C: bold and modern.** Dark throughout, oversized Unbounded headings, copper gradients, stronger motion. Partner logos run as a moving wall, projects sit in a tile grid, a bar chart compares investment across ongoing projects, and SVI's motto lights up word by word as you scroll.
 
 Links between pages only work when the folder structure is kept as it is here. `src/` holds the editable source and can be ignored when reviewing designs.
 
@@ -19,9 +22,9 @@ Links between pages only work when the folder structure is kept as it is here. `
 
 Don't edit the top-level files by hand. They're generated from `src/` by running `python3 src/build.py` from the repo root:
 
-- `src/huong-a/`, `src/huong-b/`: each direction's homepage template (`home.html`, with a `<!-- HERO -->` slot), its five hero designs (`heroes/`), and its member companies page
+- `src/huong-a/`, `src/huong-b/`, `src/huong-c/`: each direction's homepage template (`home.html`, with a `<!-- HERO -->` slot), its five hero designs (`heroes/`), and its member companies page
 - `src/picker.html`: the picker page; the variant lists come from `DIRECTIONS` in `src/build.py`
-- `src/css/heroes.css`: Direction A heroes; `src/css/huong-b.css`: Direction B skin, sections and heroes
+- `src/css/heroes.css`: Direction A heroes; `src/css/huong-b.css`: Direction B skin, sections and heroes; `src/css/huong-c.css`: Direction C skin, sections and heroes
 - Typography: the English company name uses Audiowide, the typeface of "SOUTHERN VISION" in the logo (identified from the brand identity PDF). Audiowide has no Vietnamese characters, so Vietnamese text stays in Be Vietnam Pro (and Noto Serif Display in Direction B). The logo's "INVESTMENT" line is set in Eurostile, a paid font, so it isn't used on the site
 - `src/css/site.css`, `src/js/site.js`: shared styles, the mobile menu, and the scroll animations
 - `src/img/`: images, each as WebP plus a JPEG/PNG fallback. The built files embed only the WebP versions, so browsers from before 2020 won't show the images
@@ -40,6 +43,8 @@ All images come from the three supplied PDFs. There is no stock photography and 
 | `src/img/hero2/*` | Brand Identity PDF p.2 (logo mark); Vietnamese profile pp.3, 10, 11, 12, 13, 14, 18 | Large logo mark for hero A4, and portrait crops of project renders for the B heroes |
 | `src/img/huong-b/*` | Vietnamese profile, pp.6, 21, 22, 23, 26 | One image per business line, plus the riverside aerial for the arch hero. The wind turbine, port and Bitexco images look like stock photos licensed by the profile's designer; confirm they can be reused on the website |
 | `src/huong-b/partials/map.svg` | Natural Earth (public domain), via the `world-atlas` package | Vietnam outline, projected and simplified. Hoàng Sa and Trường Sa are added by hand, because Natural Earth doesn't show them as part of Vietnam |
+| `src/img/huong-c/toan-canh-song.*` | Vietnamese profile, p.6 | Full riverside aerial (2400 px wide, the highest-resolution image in the profile) for hero C2 |
+| `src/huong-c/partials/mark.svg` | Brand Identity PDF, p.2 | The S mark rebuilt as true vectors: 16 triangle shapes and the metallic gradient read directly from the PDF's drawing instructions, so it stays sharp at any size |
 | `src/img/du-an/*` | Vietnamese profile, pp.3, 7, 10, 11, 12, 13, 14, 16, 18 | Cropped from the flattened page rasters and resized for tiles. Each has a WebP file plus a JPEG fallback |
 
 All facts and figures are taken from the Vietnamese profile. Project status dates are left out on purpose.

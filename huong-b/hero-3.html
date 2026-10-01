@@ -2048,7 +2048,7 @@ em, .it { font-style: italic; }
     <div class="wrap">
       <div class="footer-bottom">
         <span>© 2026 Công ty Cổ phần Đầu tư Tầm Nhìn Phương Nam</span>
-        <span>Bản xem trước thiết kế · Hướng A</span>
+        <span>Bản xem trước thiết kế · Hướng B</span>
       </div>
     </div>
   </footer>
@@ -2150,6 +2150,32 @@ em, .it { font-style: italic; }
     var cur = 0;
     show(0);
     if (!reduce) setInterval(function () { cur = (cur + 1) % figs.length; show(cur); }, 5200);
+  }
+
+  // ---- Direction C: scroll-linked effects (motto lights up, hero image expands) ----
+  var motto = document.querySelector(".c-motto__q");
+  var expand = document.querySelector("[data-expand]");
+  if ((motto || expand) && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    var ticking = false;
+    var update = function () {
+      ticking = false;
+      var vh = window.innerHeight;
+      if (motto) {
+        var r = motto.getBoundingClientRect();
+        var p = (vh * 0.85 - r.top) / (r.height + vh * 0.35);
+        motto.style.setProperty("--p", Math.max(0, Math.min(1, p)).toFixed(3));
+      }
+      if (expand) {
+        var e = expand.getBoundingClientRect();
+        var s = (vh - e.top) / (vh * 0.9);
+        expand.style.setProperty("--s", Math.max(0, Math.min(1, s - 0.35)).toFixed(3));
+      }
+    };
+    window.addEventListener("scroll", function () {
+      if (!ticking) { ticking = true; requestAnimationFrame(update); }
+    }, { passive: true });
+    window.addEventListener("resize", update);
+    update();
   }
 
   // ---- Scroll reveal (skipped entirely for reduced motion) ----

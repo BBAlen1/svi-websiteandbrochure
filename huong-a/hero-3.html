@@ -2017,6 +2017,32 @@ p { margin: 0; }
     if (!reduce) setInterval(function () { cur = (cur + 1) % figs.length; show(cur); }, 5200);
   }
 
+  // ---- Direction C: scroll-linked effects (motto lights up, hero image expands) ----
+  var motto = document.querySelector(".c-motto__q");
+  var expand = document.querySelector("[data-expand]");
+  if ((motto || expand) && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    var ticking = false;
+    var update = function () {
+      ticking = false;
+      var vh = window.innerHeight;
+      if (motto) {
+        var r = motto.getBoundingClientRect();
+        var p = (vh * 0.85 - r.top) / (r.height + vh * 0.35);
+        motto.style.setProperty("--p", Math.max(0, Math.min(1, p)).toFixed(3));
+      }
+      if (expand) {
+        var e = expand.getBoundingClientRect();
+        var s = (vh - e.top) / (vh * 0.9);
+        expand.style.setProperty("--s", Math.max(0, Math.min(1, s - 0.35)).toFixed(3));
+      }
+    };
+    window.addEventListener("scroll", function () {
+      if (!ticking) { ticking = true; requestAnimationFrame(update); }
+    }, { passive: true });
+    window.addEventListener("resize", update);
+    update();
+  }
+
   // ---- Scroll reveal (skipped entirely for reduced motion) ----
   if (!("IntersectionObserver" in window) || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 

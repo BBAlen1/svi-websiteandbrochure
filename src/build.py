@@ -35,6 +35,13 @@ DIRECTIONS = {
         ("4", "Năm lĩnh vực mở rộng", "Năm dải ảnh lĩnh vực, lần lượt mở rộng; rê chuột để chọn.", False),
         ("5", "Bộ ba khổ dọc", "Ba ảnh dự án khổ dọc so le, ảnh trôi chậm lên xuống bên trong khung.", False),
     ],
+    "c": [
+        ("1", "Chữ chuyển động", "Tên năm lĩnh vực chạy ngang thành hai dải chữ cỡ lớn, viền và đồng.", False),
+        ("2", "Toàn cảnh mở rộng", "Ảnh bờ sông Sài Gòn trong khung bo góc, mở rộng ra toàn màn hình khi cuộn trang.", False),
+        ("3", "Biểu tượng lắp ghép", "Logo chữ S dựng lại bằng vector từ bộ nhận diện; từng mảnh tam giác bay vào ghép thành hình.", True),
+        ("4", "Lĩnh vực xoay vòng", "Dòng “Đầu tư vào…” lần lượt đổi tên năm lĩnh vực, kèm ảnh tương ứng.", False),
+        ("5", "Mặt phẳng dự án 3D", "Các cột ảnh dự án trên mặt phẳng nghiêng phối cảnh, trôi chậm phía sau chữ.", False),
+    ],
 }
 # Direction A's lattice hero needs the lattice <symbol> injected once per page.
 EXTRA_PARTIALS = {("a", "2"): "huong-a/heroes/lattice-symbol.html"}
@@ -108,9 +115,11 @@ def build_direction(d: str) -> None:
             .replace("<!-- SWITCHER -->", switcher(d, n))
             .replace("{{SELF}}", f"hero-{n}.html")
             .replace("<title>SVI Group |", f"<title>Hướng {d.upper()} · Hero {n} | SVI Group |")
+            .replace("Bản xem trước thiết kế · Hướng A", f"Bản xem trước thiết kế · Hướng {d.upper()}")
         )
         write(f"{folder}/hero-{n}.html", html)
-    write(f"{folder}/cong-ty-thanh-vien.html", (SRC / folder / "cong-ty-thanh-vien.html").read_text(encoding="utf-8"))
+    member = (SRC / folder / "cong-ty-thanh-vien.html").read_text(encoding="utf-8")
+    write(f"{folder}/cong-ty-thanh-vien.html", member.replace("Bản xem trước thiết kế · Hướng A", f"Bản xem trước thiết kế · Hướng {d.upper()}"))
 
 
 def build_picker() -> None:
