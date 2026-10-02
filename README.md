@@ -24,7 +24,7 @@ Don't edit the top-level files by hand. They're generated from `src/` by running
 
 - `src/huong-a/`, `src/huong-b/`, `src/huong-c/`: each direction's homepage template (`home.html`, with a `<!-- HERO -->` slot), its five hero designs (`heroes/`), and its member companies page
 - `src/picker.html`: the picker page; the variant lists come from `DIRECTIONS` in `src/build.py`
-- `src/css/heroes.css`: Direction A heroes; `src/css/huong-b.css`: Direction B skin, sections and heroes; `src/css/huong-c.css`: Direction C skin, sections and heroes
+- `src/css/heroes.css`: Direction A heroes; `src/css/huong-a.css`: Direction A section styles (business line cards, vision band, project filter, member cards); `src/css/huong-b.css`: Direction B skin, sections and heroes; `src/css/huong-c.css`: Direction C skin, sections and heroes
 - Typography: the English company name uses Audiowide, the typeface of "SOUTHERN VISION" in the logo (identified from the brand identity PDF). Audiowide has no Vietnamese characters, so Vietnamese text stays in Be Vietnam Pro (and Noto Serif Display in Direction B). The logo's "INVESTMENT" line is set in Eurostile, a paid font, so it isn't used on the site
 - `src/css/site.css`, `src/js/site.js`: shared styles, the mobile menu, and the scroll animations
 - `src/img/`: images, each as WebP plus a JPEG/PNG fallback. The built files embed only the WebP versions, so browsers from before 2020 won't show the images

@@ -121,12 +121,27 @@
     update();
   }
 
+  // ---- Filter chips (Direction A projects) ----
+  document.querySelectorAll("[data-filter-for]").forEach(function (group) {
+    var list = document.getElementById(group.getAttribute("data-filter-for"));
+    if (!list) return;
+    group.addEventListener("click", function (e) {
+      var btn = e.target.closest("button[data-filter]");
+      if (!btn) return;
+      var f = btn.getAttribute("data-filter");
+      group.querySelectorAll("button").forEach(function (b) { b.setAttribute("aria-pressed", b === btn ? "true" : "false"); });
+      list.querySelectorAll("[data-region]").forEach(function (li) {
+        li.classList.toggle("is-out", f !== "all" && li.getAttribute("data-region") !== f);
+      });
+    });
+  });
+
   // ---- Scroll reveal (skipped entirely for reduced motion) ----
   if (!("IntersectionObserver" in window) || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
   var groups = [
     ".split-head", ".figures__head", ".figure", ".partner-grid li", ".line-item",
-    ".projects__sub", ".feature", ".card-grid > li", ".members__intro", ".members__list li",
+    ".projects__sub", ".feature", ".card-grid > li", ".lc", ".vals li", ".vision__q", ".mc li", ".chips", ".members__intro", ".members__list li",
     ".page-head .wrap > *", ".model__center", ".model__branches > li", ".line-section__head",
     ".co-card", ".table-wrap", ".footer-grid > div", ".rv"
   ];
