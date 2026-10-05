@@ -32,7 +32,7 @@ Don't edit the built pages by hand. Both copies are generated from `src/` by run
 - `src/css/heroes.css`: Direction A heroes; `src/css/huong-a.css`: Direction A section styles (business line cards, vision band, project filter, member cards); `src/css/huong-b.css`: Direction B skin, sections and heroes; `src/css/huong-c.css`: Direction C skin, sections and heroes
 - Typography: the English company name uses Audiowide, the typeface of "SOUTHERN VISION" in the logo (identified from the brand identity PDF). Audiowide has no Vietnamese characters, so Vietnamese text stays in Be Vietnam Pro (and Noto Serif Display in Direction B). The logo's "INVESTMENT" line is set in Eurostile, a paid font, so it isn't used on the site
 - `src/css/site.css`, `src/js/site.js`: shared styles, the mobile menu, and the scroll animations
-- `src/img/`: images, each as WebP plus a JPEG/PNG fallback. The built files embed only the WebP versions, so browsers from before 2020 won't show the images
+- `src/img/`: images, each as WebP plus a JPEG/PNG fallback. Hosted pages serve both (older browsers get the fallback); the single-file downloads embed only WebP, so browsers from before 2020 won't show their images
 
 All motion (hero entrance, scroll reveals, icon drawing, hero animations) switches off automatically when the viewer's device asks for reduced motion.
 
