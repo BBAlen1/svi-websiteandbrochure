@@ -1,19 +1,26 @@
 #!/usr/bin/env python3
-"""Build the standalone preview files from src/.
+"""Build the preview pages from src/.
 
-Outputs, each a single self-contained HTML file:
-  index.html                        picker listing every variant (repo root)
-  huong-X/hero-1.html ... hero-5.html  homepage for direction X, one per hero design
-  huong-X/cong-ty-thanh-vien.html   member companies page for direction X
+Two outputs from the same source:
 
-CSS, JS, WebP images, SVG patterns and the favicon are inlined as data URIs, so
-every file works when downloaded on its own. Only Google Fonts stays external.
+  Hosted (repo root, for GitHub Pages): fast
+    index.html, huong-X/hero-1..5.html, huong-X/cong-ty-thanh-vien.html
+    Images are separate files in assets/, lazy-loaded and cached across pages.
+
+  Downloadable (tai-ve/): one self-contained file per page
+    Same pages with CSS, JS and WebP images embedded as data URIs, so each file
+    works when downloaded and opened on its own.
+
+Only Google Fonts stays external in both.
 
 Usage (from the repo root): python3 src/build.py
 """
 import base64
 import pathlib
 import re
+import shutil
+
+from PIL import Image
 
 SRC = pathlib.Path(__file__).resolve().parent
 ROOT = SRC.parent
@@ -51,42 +58,107 @@ def data_uri(path: pathlib.Path) -> str:
     return f"data:{MIME[path.suffix]};base64,{base64.b64encode(path.read_bytes()).decode()}"
 
 
-def css(name: str) -> str:
+# Images with a smaller phone variant (file "<name>-<w>.webp"): full width, small width.
+RESPONSIVE = {"img/huong-c/toan-canh-song.webp": 1200, "img/hero/vcp-pano.webp": 800}
+
+# Audiowide only sets the English company name, so request just those glyphs.
+AUDIOWIDE = ('<link href="https://fonts.googleapis.com/css2?family=Audiowide&amp;text='
+             'SouthernVisionInvestmentCorporationSOUTHERNVISIONINVESTMENTCORPORATION%20&amp;display=swap" rel="stylesheet">')
+
+
+def fonts(html: str) -> str:
+    if "family=Audiowide" not in html:
+        return html
+    html = html.replace("&amp;family=Audiowide", "")
+    return re.sub(r'(<link href="https://fonts\.googleapis\.com/css2\?family=Be[^>]+>)', lambda m: m.group(1) + "\n  " + AUDIOWIDE, html, count=1)
+
+
+def prioritise_hero(html: str) -> str:
+    """The hero's first image is the likely largest paint: load it eagerly at high priority."""
+    i = html.find('id="gioi-thieu"')
+    if i < 0:
+        return html
+    j = html.find("</section>", i)
+    hero = html[i:j].replace(' loading="lazy"', "")
+    hero = re.sub(r"<img ", '<img fetchpriority="high" ', hero, count=1)
+    return html[:i] + hero + html[j:]
+
+
+def lazy_async(html: str) -> str:
+    return html.replace(' loading="lazy"', ' loading="lazy" decoding="async"')
+
+
+def css(name: str, url) -> str:
     text = (SRC / "css" / name).read_text(encoding="utf-8")
-    return re.sub(r'url\("\.\./(img/[^"]+)"\)', lambda m: f'url("{data_uri(SRC / m.group(1))}")', text)
+    return re.sub(r'url\("\.\./(img/[^"]+)"\)', lambda m: f'url("{url(m.group(1))}")', text)
 
 
-def inline(html: str, name: str) -> str:
-    """Inline stylesheets, script, favicon and <picture> images."""
+def common(html: str, url) -> str:
+    html = re.sub(r'<link rel="stylesheet" href="css/([^"]+)">', lambda m: f"<style>\n{css(m.group(1), url)}</style>", html)
+    html = html.replace('<script src="js/site.js"></script>',
+                        f"<script>\n{(SRC / 'js' / 'site.js').read_text(encoding='utf-8')}</script>")
+    return lazy_async(prioritise_hero(fonts(html)))
 
+
+def standalone(html: str, name: str) -> str:
+    """Everything embedded (WebP only), so the single file works when downloaded."""
     def picture(m: re.Match) -> str:
         webp, attrs = m.group(1), re.sub(r'\s*src="[^"]+"', "", m.group(2))
         return f'<img src="{data_uri(SRC / webp)}"{attrs}>'
-
-    html = re.sub(
-        r'<picture>\s*<source type="image/webp" srcset="([^"]+)">\s*<img([^>]*)>\s*</picture>', picture, html
-    )
-    html = re.sub(
-        r'<link rel="stylesheet" href="css/([^"]+)">', lambda m: f"<style>\n{css(m.group(1))}</style>", html
-    )
-    html = html.replace(
-        '<script src="js/site.js"></script>',
-        f"<script>\n{(SRC / 'js' / 'site.js').read_text(encoding='utf-8')}</script>",
-    )
-    # url("img/...") inside inline <style> blocks (e.g. hero-only backgrounds)
+    html = re.sub(r'<picture>\s*<source type="image/webp" srcset="([^"]+)">\s*<img([^>]*)>\s*</picture>', picture, html)
+    html = common(html, lambda p: data_uri(SRC / p))
     html = re.sub(r'url\("(img/[^"]+)"\)', lambda m: f'url("{data_uri(SRC / m.group(1))}")', html)
     html = html.replace('href="img/favicon.png"', f'href="{data_uri(SRC / "img" / "favicon.png")}"')
-    leftovers = re.findall(r'(?:src|href|srcset)="((?:img|css|js)/[^"]+)"', html)
-    if leftovers:
-        raise SystemExit(f"{name}: unresolved local references {leftovers}")
+    left = re.findall(r'(?:src|href|srcset)="((?:img|css|js)/[^"]+)"', html)
+    if left:
+        raise SystemExit(f"{name}: unresolved local references {left}")
+    return html
+
+
+USED: set = set()
+
+
+def hosted(html: str, name: str) -> str:
+    """Images as separate cached files under assets/, loaded lazily below the fold."""
+    prefix = "../" * name.count("/")
+    def url(p: str) -> str:
+        USED.add(p)
+        return f"{prefix}assets/{p}"
+    def source(m: re.Match) -> str:
+        p = m.group(1)
+        if p in RESPONSIVE:
+            w = RESPONSIVE[p]; small = p.replace(".webp", f"-{w}.webp")
+            full = Image.open(SRC / p).width
+            return f'<source type="image/webp" srcset="{url(small)} {w}w, {url(p)} {full}w" sizes="100vw">'
+        return f'<source type="image/webp" srcset="{url(p)}">'
+    html = re.sub(r'<source type="image/webp" srcset="(img/[^"]+)">', source, html)
+    html = common(html, url)
+    html = re.sub(r'((?:src|href)=")(img/[^"]+)"', lambda m: f'{m.group(1)}{url(m.group(2))}"', html)
+    html = re.sub(r'url\("(img/[^"]+)"\)', lambda m: f'url("{url(m.group(1))}")', html)
     return html
 
 
 def write(name: str, html: str) -> None:
-    out = ROOT / name
-    out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(inline(html, name), encoding="utf-8")
-    print(f"{name}: {out.stat().st_size / 1024:.0f} KB")
+    for out, body in ((ROOT / name, hosted(html, name)), (ROOT / "tai-ve" / name, standalone(html, name))):
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(body, encoding="utf-8")
+    print(f"{name}: hosted {(ROOT / name).stat().st_size / 1024:.0f} KB, standalone {(ROOT / 'tai-ve' / name).stat().st_size / 1024:.0f} KB")
+
+
+def copy_assets() -> None:
+    dest = ROOT / "assets"
+    if dest.exists():
+        shutil.rmtree(dest)
+    for p in sorted(USED):
+        (dest / p).parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(SRC / p, dest / p)
+        if p.endswith(".webp"):  # <picture> fallback
+            for ext in (".jpg", ".png"):
+                fb = SRC / p.replace(".webp", ext)
+                if fb.exists():
+                    shutil.copy2(fb, dest / p.replace(".webp", ext))
+    size = sum(f.stat().st_size for f in dest.rglob("*") if f.is_file())
+    print(f"assets/: {len(USED)} images referenced, {size / 1024:.0f} KB on disk")
 
 
 def switcher(d: str, current: str) -> str:
@@ -143,3 +215,4 @@ if __name__ == "__main__":
     for d in DIRECTIONS:
         build_direction(d)
     build_picker()
+    copy_assets()

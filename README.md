@@ -1,6 +1,9 @@
 # SVI Group website design previews
 
-Every HTML file at the top level of this repo is a single, self-contained page. CSS, JS and images are all embedded, so each one works when downloaded and opened on its own. The only external request is Google Fonts (Be Vietnam Pro).
+There are two copies of every page, built from the same source:
+
+- **Hosted pages** (repo root: `index.html`, `huong-a/`, `huong-b/`, `huong-c/`). Use these for the GitHub Pages link. Images are separate files in `assets/`, so they load as you scroll, and the browser caches them as you move between variants. They also work when you open them from a downloaded copy of the whole repo.
+- **Single-file downloads** (`tai-ve/`, "downloads"). These are the same pages with everything embedded, so one `.html` file works on its own when downloaded. They're slower to load (1 to 1.7 MB each), so only use them for sending a file.
 
 | File | What it is |
 |---|---|
@@ -12,6 +15,8 @@ Every HTML file at the top level of this repo is a single, self-contained page. 
 | `huong-c/hero-1.html` to `hero-5.html` | Direction C (bold, modern) homepage, one per hero design |
 | `huong-c/cong-ty-thanh-vien.html` | Direction C member companies page (draft content) |
 
+Measured on a throttled mobile 4G connection (1.6 Mbps, 150 ms latency, 4× slower CPU), a hosted homepage paints in 0.5 to 1 s and finishes loading in 1.2 to 3.1 s.
+
 **Direction A: conservative institutional.** Navy, sans-serif, restrained; closer to CapitaLand or Keppel.
 **Direction B: editorial and warm.** Cream, plum and copper, with a serif for headings (Noto Serif Display). It's laid out like a magazine, with numbered chapters, an interactive project map, and SVI's own vision, mission, values and motto from the company profile.
 **Direction C: bold and modern.** Dark throughout, oversized Unbounded headings, copper gradients, stronger motion. Partner logos run as a moving wall, projects sit in a tile grid, a bar chart compares investment across ongoing projects, and SVI's motto lights up word by word as you scroll.
@@ -20,7 +25,7 @@ Links between pages only work when the folder structure is kept as it is here. `
 
 ## Editing
 
-Don't edit the top-level files by hand. They're generated from `src/` by running `python3 src/build.py` from the repo root:
+Don't edit the built pages by hand. Both copies are generated from `src/` by running `python3 src/build.py` from the repo root:
 
 - `src/huong-a/`, `src/huong-b/`, `src/huong-c/`: each direction's homepage template (`home.html`, with a `<!-- HERO -->` slot), its five hero designs (`heroes/`), and its member companies page
 - `src/picker.html`: the picker page; the variant lists come from `DIRECTIONS` in `src/build.py`
