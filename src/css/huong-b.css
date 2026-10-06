@@ -161,7 +161,7 @@ em, .it { font-style: italic; }
   .b-cards > li:first-child { border-top: 0; padding-top: 4px; }
   .b-cards .card { display: grid; grid-template-columns: 104px minmax(0, 1fr); column-gap: 16px; }
   .b-cards .media { grid-row: 1 / span 3; aspect-ratio: 1; }
-  .b-cards .project-type { margin-top: 0; font-size: .6875rem; }
+  .b-cards .project-type { margin-top: 0; font-size: .75rem; }
   .b-cards h4 { font-size: 1.125rem; }
   .b-cards .facts, .b-cards .card__sum { grid-column: 1 / -1; }
 }

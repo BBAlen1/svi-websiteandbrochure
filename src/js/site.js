@@ -28,6 +28,18 @@
     });
   }
 
+  // ---- Review switcher: on phones the current number toggles the full set ----
+  var vs = document.querySelector(".variant-switch");
+  if (vs) {
+    var cur = vs.querySelector('[aria-current="page"]');
+    cur.addEventListener("click", function (e) {
+      if (!window.matchMedia("(max-width: 640px)").matches) return;
+      e.preventDefault();
+      vs.classList.toggle("is-open");
+    });
+    document.addEventListener("click", function (e) { if (!vs.contains(e.target)) vs.classList.remove("is-open"); });
+  }
+
   // ---- Header shadow once scrolled ----
   if (header) {
     var onScroll = function () { header.classList.toggle("is-scrolled", window.scrollY > 8); };

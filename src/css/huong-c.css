@@ -359,3 +359,9 @@ body { background: var(--cream); color: var(--ink); }
 }
 
 @media (max-width: 900px) { .kin__row--f span { opacity: .08; } .kin__row--o { color: rgba(255,255,255,.03); } }
+
+@media (max-width: 640px), (pointer: coarse) and (max-width: 1024px) { .tile__chip { font-size: .75rem; } }
+@media (max-width: 640px) {
+  .ch h1 .en { line-height: 1.7; margin-top: 14px; }
+  .vmark-wrap { width: 96px; }
+}

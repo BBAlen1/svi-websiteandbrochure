@@ -832,7 +832,7 @@ p { margin: 0; }
     align-content: start;
   }
   .card .media { grid-row: 1 / span 3; aspect-ratio: 1; align-self: start; }
-  .card .project-type { margin-top: 0; font-size: 0.6875rem; }
+  .card .project-type { margin-top: 0; font-size: .75rem; }
   .card h4 { font-size: 1.0625rem; }
   .card .project-loc { margin-top: 2px; font-size: 0.8125rem; }
   .card .facts,
@@ -1308,6 +1308,36 @@ p { margin: 0; }
   text-transform: uppercase;
 }
 .site-footer .name-en[lang="en"] { font-size: .75rem; }
+
+/* ================= Phones: legibility and touch targets =================
+   Found by testing on emulated iPhone SE / 15 Pro / Pixel 7 / Galaxy S9+.
+   Desktop is unchanged. */
+@media (max-width: 640px), (pointer: coarse) and (max-width: 1024px) {
+  .project-type, .site-footer h2, .tile__chip, .co-table thead th, .draft-ribbon strong, .draft-note strong, .pick__t em { font-size: .75rem; }
+  /* The project map scales down to fit the screen, so its labels need larger units */
+  .vn-map .pin__name { font-size: 21px; }
+  .vn-map .pin__count { font-size: 16px; }
+  .vn-map .isl text, .vn-map .vn-map__ref text { font-size: 16px; }
+}
+@media (pointer: coarse) {
+  /* Bigger hit areas without changing the visual spacing */
+  .link-arrow { padding-top: 10px; padding-bottom: 10px; }
+  .bh__lines a, .b-region a, .site-footer a, .breadcrumb a, .site-footer address a {
+    display: inline-block; padding-block: 12px; margin-block: -12px;
+  }
+  .b-region li + li { margin-top: 10px; }
+  .bh__lines { row-gap: 16px; }
+  .site-footer li + li { margin-top: 14px; }
+}
+/* Review switcher on phones: a single badge that expands on tap, so it never covers content */
+@media (max-width: 640px) {
+  .variant-switch { right: 12px; bottom: calc(12px + env(safe-area-inset-bottom)); }
+  .variant-switch a:not([aria-current]):not(.lbl) { display: none; }
+  .variant-switch [aria-current="page"] { min-width: 44px; height: 44px; font-size: .875rem; }
+  .variant-switch [aria-current="page"]::after { content: "/5"; margin-left: 1px; font-size: .6875rem; opacity: .8; }
+  .variant-switch.is-open a:not(.lbl) { display: inline-flex; min-width: 40px; height: 40px; }
+  .variant-switch.is-open [aria-current="page"]::after { content: none; }
+}
 </style>
   <style>
 /* Direction A heroes (navy). Each homepage variant uses one. Shared shell first. */
@@ -2036,6 +2066,18 @@ p { margin: 0; }
     window.matchMedia("(min-width: 1021px)").addEventListener("change", function (mq) {
       if (mq.matches) setOpen(false);
     });
+  }
+
+  // ---- Review switcher: on phones the current number toggles the full set ----
+  var vs = document.querySelector(".variant-switch");
+  if (vs) {
+    var cur = vs.querySelector('[aria-current="page"]');
+    cur.addEventListener("click", function (e) {
+      if (!window.matchMedia("(max-width: 640px)").matches) return;
+      e.preventDefault();
+      vs.classList.toggle("is-open");
+    });
+    document.addEventListener("click", function (e) { if (!vs.contains(e.target)) vs.classList.remove("is-open"); });
   }
 
   // ---- Header shadow once scrolled ----
